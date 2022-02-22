@@ -15,8 +15,13 @@ jobs:
       - name: Check Out Repo 
         uses: actions/checkout@v2
       
+      - name: Docker Login 
       - run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Docker Build
       - run: docker build -t 846156204/react-app-test -f Dockerfile.dev .
+
+      - name: Run Tests
       - run: docker run -e CI=true 846156204/react-app-test npm test
  
       - name: Generate deployment package
